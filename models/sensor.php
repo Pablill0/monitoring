@@ -1,4 +1,6 @@
 <?php
+require_once('mysqlconnection.php');
+require_once('exceptions/recordnotfoundexception.php');
   class Sensor
   {
     private $id;
@@ -22,8 +24,6 @@
     public function setSensorMidRank($value){$this->mid_rank=$value;}
     public function getSensorMinRank(){return $this->min_rank;}
     public function setSensorMinRank($value){$this->min_rank=$value;}
-    public function getSensorType(){}
-    public function setSensorType($value){}
 
     function __construct(argument)
     {
@@ -42,11 +42,11 @@
       {
         $id = func_get_arg(0);
 				$connection = MySQLConnection::getConnection();
-				$query = 'select s.id, s.machine_id, s.model, s.description, s.max_rank, s.mid_rank, s.min_rank, t.id, t.name from sensor as s inner join sensorType as t on s.type = t.id where s.id=?';
+				$query = 'select s.id, s.machine_id, s.model, s.description, s.max_rank, s.mid_rank, s.min_rank, t.id from sensor as s inner join sensorType as t on s.type = t.id where s.id=?';
 				$command = $connection->prepare($query);
 				$command->bind_param('s', $id);
 				$command->execute();
-				$command->bind_result($id,$machine,$model,$description,$max_rank,$mid_rank,$min_rank,$typeID,$typeName);
+				$command->bind_result($id,$machine,$model,$description,$max_rank,$mid_rank,$min_rank,$typeID);
 				$found = $command->fetch();
 				mysqli_stmt_close($command);
 				$connection->close();
@@ -59,7 +59,7 @@
           $this->max_rank = $max_rank;
 					$this->mid_rank = $mid_rank;
 					$this->min_rank = $min_rank;
-          $this->type = new sensorType($typeID,$typeName);
+          $this->type = new SensorType($typeID);
 				}
 				else
 				{
@@ -79,6 +79,19 @@
         $this->type = $arguments[7];
 			}
     }
+
+    public function add()
+		{
+			$connection = MySqlConnection::getConnection();
+			$query = 'insert into sensor(machine_id,model,description,max_rank,mid_rank,min_rank,type) values(?,?,?,?,?,?,?)';
+			$command = $connection->prepare($query);
+			$command->bind_param('dssdddd',$this->machine,$this->model,$this->description,$this->max_rank,$this->mid_rank,$this->min_rank,$this->type->()getId());
+			$result = $command->execute();
+			mysqli_stmt_close($command);
+			$connection->close();
+			return $result;
+		}
+
     public function toJson()
     {
       return json_encode(array(

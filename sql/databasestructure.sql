@@ -32,7 +32,7 @@ create table area
 (
 	id int primary key auto_increment,
 	name varchar(30) not null,
-	Supervisor int references employee(id)
+	supervisor int references employee(id)
 );
 
 insert into area(name,Supervisor) values('Molding',1);

@@ -1,4 +1,6 @@
 <?php
+require_once('mysqlconnection.php');
+require_once('exceptions/recordnotfoundexception.php');
   class Area
   {
     private $id;
@@ -51,6 +53,18 @@
 				$this->employee = $arguments[2];
 			}
     }
+
+    public function add()
+		{
+			$connection = MySqlConnection::getConnection();
+			$query = 'insert into area (name, supervisor) values(?,?)';
+			$command = $connection->prepare($query);
+			$command->bind_param('sd',$this->name,$this->employee);
+			$result = $command->execute();
+			mysqli_stmt_close($command);
+			$connection->close();
+			return $result;
+		}
 
     public function toJson()
     {
