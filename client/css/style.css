@@ -1,0 +1,118 @@
+* {
+	font-family:arial;
+}
+body {
+	margin:0px;
+}
+
+/*all*/
+header, #menu, #logo, #user, #sidemenu, #content {
+	position:relative;
+}
+
+/*header*/
+header {
+	float:left;
+	width:100%;
+	background:#1976D2;
+	box-shadow:0px 0px 20px #222;
+	z-index:9000;
+}
+#menu {
+	float:left;
+	margin:20px 10px auto 10px;
+}
+#logo {
+	float:left;
+	margin:10px auto 10px 10px;
+}
+#logo img {
+	height:60px;
+}
+#user {
+	float:right;
+	margin:0px 0px 0px auto;
+	height:80px;
+	background:#1565C0;	
+}
+#user table {
+	border-spacing:0px;
+	margin:20px;
+}
+#user table td {
+	padding:0px 0px 0px 10px;
+}
+#user img {
+	height:40px;
+}
+#username {
+	font-size:12pt;
+	color:#FFF;
+}
+#userrole {
+	font-size:10pt;
+	color:#BBDEFB;
+}
+#user button {
+	border:0px;
+	height:40px;
+	width:100px;
+	margin-left:20px;
+	color:#FFF;
+	background:#2196F3;
+	border-radius:5px;
+	font-size:12pt;
+	cursor:pointer;
+}
+#user button:hover {
+	background:#42A5F5;
+}
+#title {
+	float:left;
+	width:100%;
+	height:40px;
+	background:#0D47A1;
+}
+#title h1 {
+	margin:10px auto auto 10px;
+	font-size:14pt;
+	font-weight:bold;
+	color:#FFF;
+}
+
+#sidemenu {
+	float:left;
+	width:20%;
+	min-height:calc(100% - 120px);
+	background:#777;
+	display:none;
+}
+#sidemenu ul {
+	margin:0px;
+	padding:0px;
+	list-style-type:none;
+}
+#sidemenu ul li {
+}
+#sidemenu ul li a {
+	display:block;
+	width:100%;
+	font-size:14pt;
+	padding:20px 0px 20px 0px;
+	text-align:center;
+	text-decoration:none;
+	border-bottom:1px solid #999;
+}
+#sidemenu ul li a:link, #sidemenu ul li a:visited {
+	color:#CCC;
+}
+#sidemenu ul li a:hover {
+	background:#999;
+	color:#FFF;
+}
+
+#content {
+	float:left;
+	width:100%;
+}
+	
